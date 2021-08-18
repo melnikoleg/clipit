@@ -924,6 +924,8 @@ def do_video(args):
     tqdm.write('Generating video...')
     for i in range(init_frame,last_frame): #
         frames.append(Image.open(f'./steps/frame_{i:04d}.png'))
+    for i in range(50):    
+        frames.append(Image.open(f'./steps/frame_{last_frame:04d}.png'))
 
     #fps = last_frame/10
     fps = np.clip(total_frames/length,min_fps,max_fps)
