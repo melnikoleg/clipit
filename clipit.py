@@ -411,7 +411,11 @@ def do_init(args):
 
         starting_image.save("starting_image.png")
         starting_tensor = TF.to_tensor(starting_image)
+        print("starting_tensor",starting_tensor.to(device).unsqueeze(0).shape)
+        print("starting_tensor",starting_tensor.to(device).unsqueeze(0))
         init_tensor = starting_tensor.to(device).unsqueeze(0) * 2 - 1
+        print("intit_tensor", init_tensor.shape)
+        print("intit_tensor", init_tensor)
         drawer.init_from_tensor(init_tensor)
 
     else:
