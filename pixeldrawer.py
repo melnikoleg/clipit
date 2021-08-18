@@ -120,8 +120,8 @@ class PixelDrawer(DrawingInterface):
             cur_y = r * cell_height
             for c in range(num_cols):
                 cur_x = c * cell_width
-                print("x". cur_x)
-                print("y". cur_y)
+                print("x", cur_x)
+                print("y", cur_y)
                 if self.do_mono:
                     mono_color = random.random()
                     cell_color = torch.tensor([mono_color, mono_color, mono_color, 1.0])
