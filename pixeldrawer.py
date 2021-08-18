@@ -93,7 +93,7 @@ class PixelDrawer(DrawingInterface):
         
         pimg = self.to_image()
         pimg.save("start.png")
-        display.display(display.Image(outfile))
+        display.display(display.Image("start.png"))
         
     def get_opts(self):
         return self.opts
@@ -160,7 +160,7 @@ class PixelDrawer(DrawingInterface):
         self.synth(0)
         pimg = self.to_image()
         pimg.save("init.png")
-        display.display(display.Image(outfile))
+        display.display(display.Image("init.png"))
 
 
     def reapply_from_tensor(self, new_tensor):
