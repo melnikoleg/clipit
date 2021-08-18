@@ -188,7 +188,6 @@ class PixelDrawer(DrawingInterface):
 
     @torch.no_grad()
     def to_image(self):
-        print("to_image_shape", img.shape)
         img = self.img.detach().cpu().numpy()[0]
         print("to_image_shape", img.shape)
         img = np.transpose(img, (1, 2, 0))
