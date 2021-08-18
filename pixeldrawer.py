@@ -87,8 +87,8 @@ class PixelDrawer(DrawingInterface):
         self.shapes = shapes 
         self.shape_groups  = shape_groups
         self.opts = [color_optim]
-        print("start_image_shape", img.shape)
         
+        print("start_image_shape", img.shape)
         
         pimg = self.to_image()
         pimg.save("start.png", pnginfo=info)
@@ -152,8 +152,6 @@ class PixelDrawer(DrawingInterface):
         self.shapes = shapes 
         self.shape_groups  = shape_groups
         self.opts = [color_optim]
-        
-        img = self.img.detach().cpu().numpy()[0]
         
         
         print("from_image_shape", img.shape)
