@@ -12,6 +12,7 @@ import torchvision
 import torchvision.transforms as transforms
 import numpy as np
 import PIL.Image
+from PIL import ImageFile, Image, PngImagePlugin
 
 pydiffvg.set_print_timing(False)
 
@@ -96,6 +97,8 @@ class PixelDrawer(DrawingInterface):
     def init_from_tensor(self, init_tensor):
         print(init_tensor)
         print(init_tensor.shape)
+        
+  
         canvas_width, canvas_height = self.canvas_width, self.canvas_height
         num_rows, num_cols = self.num_rows, self.num_cols
         cell_width = canvas_width / num_cols
@@ -142,6 +145,12 @@ class PixelDrawer(DrawingInterface):
         self.shapes = shapes 
         self.shape_groups  = shape_groups
         self.opts = [color_optim]
+        
+        pimg = self.to_image()
+        info = PngImagePlugin.PngInfo()
+        pimg.save("init.png", pnginfo=info)
+        display.display(display.Image(outfile))
+
 
     def reapply_from_tensor(self, new_tensor):
         # TODO
