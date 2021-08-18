@@ -94,8 +94,54 @@ class PixelDrawer(DrawingInterface):
         pass
 
     def init_from_tensor(self, init_tensor):
-        # TODO
-        pass
+        print(init_tensor)
+        print(init_tensor.shape)
+        canvas_width, canvas_height = self.canvas_width, self.canvas_height
+        num_rows, num_cols = self.num_rows, self.num_cols
+        cell_width = canvas_width / num_cols
+        cell_height = canvas_height / num_rows
+
+        # Initialize Random Pixels
+        shapes = []
+        shape_groups = []
+        colors = []
+        for r in range(num_rows):
+            cur_y = r * cell_height
+            for c in range(num_cols):
+                cur_x = c * cell_width
+                if self.do_mono:
+                    mono_color = random.random()
+                    cell_color = torch.tensor([mono_color, mono_color, mono_color, 1.0])
+                else:
+                    cell_color = torch.tensor([random.random(), random.random(), random.random(), 1.0])
+                colors.append(cell_color)
+                p0 = [cur_x, cur_y]
+                p1 = [cur_x+cell_width, cur_y+cell_height]
+                path = pydiffvg.Rect(p_min=torch.tensor(p0), p_max=torch.tensor(p1))
+                shapes.append(path)
+                path_group = pydiffvg.ShapeGroup(shape_ids = torch.tensor([len(shapes) - 1]), stroke_color = None, fill_color = cell_color)
+                shape_groups.append(path_group)
+
+        # Just some diffvg setup
+        scene_args = pydiffvg.RenderFunction.serialize_scene(\
+            canvas_width, canvas_height, shapes, shape_groups)
+        render = pydiffvg.RenderFunction.apply
+        img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
+
+        color_vars = []
+        for group in shape_groups:
+            group.fill_color.requires_grad = True
+            color_vars.append(group.fill_color)
+
+        # Optimizers
+        # points_optim = torch.optim.Adam(points_vars, lr=1.0)
+        # width_optim = torch.optim.Adam(stroke_width_vars, lr=0.1)
+        color_optim = torch.optim.Adam(color_vars, lr=0.02)
+
+        self.img = img
+        self.shapes = shapes 
+        self.shape_groups  = shape_groups
+        self.opts = [color_optim]
 
     def reapply_from_tensor(self, new_tensor):
         # TODO
