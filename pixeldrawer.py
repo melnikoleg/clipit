@@ -88,10 +88,11 @@ class PixelDrawer(DrawingInterface):
         self.shape_groups  = shape_groups
         self.opts = [color_optim]
         
+        self.synth(0)
         print("start_image_shape", img.shape)
         
         pimg = self.to_image()
-        pimg.save("start.png", pnginfo=info)
+        pimg.save("start.png")
         display.display(display.Image(outfile))
         
     def get_opts(self):
@@ -147,7 +148,7 @@ class PixelDrawer(DrawingInterface):
         # points_optim = torch.optim.Adam(points_vars, lr=1.0)
         # width_optim = torch.optim.Adam(stroke_width_vars, lr=0.1)
         color_optim = torch.optim.Adam(color_vars, lr=0.02)
-
+    
         self.img = img
         self.shapes = shapes 
         self.shape_groups  = shape_groups
@@ -156,9 +157,9 @@ class PixelDrawer(DrawingInterface):
         
         print("from_image_shape", img.shape)
         
-        
+        self.synth(0)
         pimg = self.to_image()
-        pimg.save("init.png", pnginfo=info)
+        pimg.save("init.png")
         display.display(display.Image(outfile))
 
 
@@ -187,6 +188,7 @@ class PixelDrawer(DrawingInterface):
 
     @torch.no_grad()
     def to_image(self):
+        print("to_image_shape", img.shape)
         img = self.img.detach().cpu().numpy()[0]
         print("to_image_shape", img.shape)
         img = np.transpose(img, (1, 2, 0))
