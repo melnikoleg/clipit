@@ -13,6 +13,7 @@ import torchvision.transforms as transforms
 import numpy as np
 import PIL.Image
 from PIL import ImageFile, Image, PngImagePlugin
+from IPython import display
 
 pydiffvg.set_print_timing(False)
 
@@ -86,7 +87,13 @@ class PixelDrawer(DrawingInterface):
         self.shapes = shapes 
         self.shape_groups  = shape_groups
         self.opts = [color_optim]
-
+        print("start_image_shape", img.shape)
+        
+        
+        pimg = self.to_image()
+        pimg.save("start.png", pnginfo=info)
+        display.display(display.Image(outfile))
+        
     def get_opts(self):
         return self.opts
 
@@ -152,11 +159,8 @@ class PixelDrawer(DrawingInterface):
         print("from_image_shape", img.shape)
         
         
-        info = PngImagePlugin.PngInfo()
-        img.save("init.png", pnginfo=info)
-        
         pimg = self.to_image()
-        pimg.save("init2.png", pnginfo=info)
+        pimg.save("init.png", pnginfo=info)
         display.display(display.Image(outfile))
 
 
