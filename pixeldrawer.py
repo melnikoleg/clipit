@@ -146,9 +146,17 @@ class PixelDrawer(DrawingInterface):
         self.shape_groups  = shape_groups
         self.opts = [color_optim]
         
-        pimg = self.to_image()
+        img = self.img.detach().cpu().numpy()[0]
+        
+        
+        print("from_image_shape", img.shape)
+        
+        
         info = PngImagePlugin.PngInfo()
-        pimg.save("init.png", pnginfo=info)
+        img.save("init.png", pnginfo=info)
+        
+        pimg = self.to_image()
+        pimg.save("init2.png", pnginfo=info)
         display.display(display.Image(outfile))
 
 
@@ -178,6 +186,7 @@ class PixelDrawer(DrawingInterface):
     @torch.no_grad()
     def to_image(self):
         img = self.img.detach().cpu().numpy()[0]
+        print("to_image_shape", img.shape)
         img = np.transpose(img, (1, 2, 0))
         img = np.clip(img, 0, 1)
         img = np.uint8(img * 254)
