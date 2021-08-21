@@ -290,7 +290,7 @@ class MakeCutouts(nn.Module):
                 cutout[0][mask_indexes] = 0.5
 
             if global_aspect_width != 1:
-                cutout = kornia.geometry.transform.rescale(cutout, (1, 1/3))
+                cutout = kornia.geometry.transform.rescale(cutout, (1, 16/9))
 
             # if i % 50 == 0 and _ == 0:
             #     print(cutout.shape)
