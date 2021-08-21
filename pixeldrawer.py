@@ -185,11 +185,13 @@ class PixelDrawer(DrawingInterface):
         img = img.permute(0, 3, 1, 2) # NHWC -> NCHW
         self.img = img
         return img
-
+    
+    @torch.no_grad()
+    def to_svg(self):
+        pydiffvg.save_svg("./output.svg", self.canvas_width, self.canvas_height, self.shapes, self.shape_groups)
+        
     @torch.no_grad()
     def to_image(self):
-        pydiffvg.save_svg("./output.svg",
-                              self.canvas_width, self.canvas_height, self.shapes, self.shape_groups)
         img = self.img.detach().cpu().numpy()[0]
         print("to_image_shape", img.shape)
         img = np.transpose(img, (1, 2, 0))
