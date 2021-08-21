@@ -290,7 +290,7 @@ class MakeCutouts(nn.Module):
                 cutout[0][mask_indexes] = 0.5
 
             if global_aspect_width != 1:
-                cutout = kornia.geometry.transform.rescale(cutout, (1, 16/9))
+                cutout = kornia.geometry.transform.rescale(cutout, (1, 1/3))
 
             # if i % 50 == 0 and _ == 0:
             #     print(cutout.shape)
@@ -1022,6 +1022,7 @@ def setup_parser():
 
 square_size = [144, 144]
 widescreen_size = [200, 112]  # at the small size this becomes 192,112
+twitter_size = [300, 100]  # at the small size this becomes 192,112
 
 def process_args(vq_parser, namespace=None):
     global global_aspect_width
@@ -1086,6 +1087,7 @@ def process_args(vq_parser, namespace=None):
     aspect_to_size_table = {
         'square': [150, 150],
         'widescreen': [200, 112]
+        'twitter' = [300, 100]
     }
 
     # determine size if not set
@@ -1108,6 +1110,8 @@ def process_args(vq_parser, namespace=None):
 
     if args.aspect == "widescreen":
         global_aspect_width = 16/9
+    elif args.aspect == "twitter":
+        global_aspect_width = 3/1
     else:
         global_aspect_width = 1
 
