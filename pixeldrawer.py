@@ -178,8 +178,6 @@ class PixelDrawer(DrawingInterface):
         render = pydiffvg.RenderFunction.apply
         scene_args = pydiffvg.RenderFunction.serialize_scene(\
             self.canvas_width, self.canvas_height, self.shapes, self.shape_groups)
-        pydiffvg.save_svg("./output.svg",
-                              self.canvas_width, self.canvas_height, self.shapes, self.shape_groups)
         img = render(self.canvas_width, self.canvas_height, 2, 2, cur_iteration, None, *scene_args)
         img = img[:, :, 3:4] * img[:, :, :3] + torch.ones(img.shape[0], img.shape[1], 3, device = pydiffvg.get_device()) * (1 - img[:, :, 3:4])
         img = img[:, :, :3]
@@ -190,6 +188,8 @@ class PixelDrawer(DrawingInterface):
 
     @torch.no_grad()
     def to_image(self):
+        pydiffvg.save_svg("./output.svg",
+                              self.canvas_width, self.canvas_height, self.shapes, self.shape_groups)
         img = self.img.detach().cpu().numpy()[0]
         print("to_image_shape", img.shape)
         img = np.transpose(img, (1, 2, 0))
