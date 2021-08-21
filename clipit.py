@@ -909,7 +909,7 @@ def do_run(args):
             pass
 
     if args.make_video:
-        drawer.to_svg()
+        #drawer.to_svg()
         do_video(args)
 
 def do_video(args):
