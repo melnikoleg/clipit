@@ -31,7 +31,7 @@ class PixelDrawer(DrawingInterface):
         if shape is not None:
             self.num_rows, self.num_cols = shape
 
-    def update_shapes(self, shape=None):
+    def set_shapes(self, shape=None):
         if shape is not None:
             self.num_rows, self.num_cols = shape
             
