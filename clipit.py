@@ -1025,7 +1025,7 @@ def setup_parser():
 square_size = [144, 144]
 widescreen_size = [200, 112]  # at the small size this becomes 192,112
 twitter_size = [300, 100]  # at the small size this becomes 192,112
-twitter2_size = [600, 200]  # at the small size this becomes 192,112
+twitter2_size = [750, 250]  # at the small size this becomes 192,112
 
 def process_args(vq_parser, namespace=None):
     global global_aspect_width
@@ -1091,7 +1091,7 @@ def process_args(vq_parser, namespace=None):
         'square': [150, 150],
         'widescreen': [200, 112],
         'twitter': [300, 100],
-        'twitter2': [600, 200]
+        'twitter2': [750, 250]
     }
 
     # determine size if not set
@@ -1114,7 +1114,7 @@ def process_args(vq_parser, namespace=None):
 
     if args.aspect == "widescreen":
         global_aspect_width = 16/9
-    elif args.aspect == "twitter":
+    elif args.aspect == "twitter" or args.aspect == "twitter2":
         global_aspect_width = 3/1
     else:
         global_aspect_width = 1
