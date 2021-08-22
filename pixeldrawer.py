@@ -17,8 +17,8 @@ from PIL import ImageFile, Image, PngImagePlugin
 pydiffvg.set_print_timing(False)
 
 class PixelDrawer(DrawingInterface):
-    num_rows = 125
-    num_cols = 275
+    num_rows = 75
+    num_cols = 225
     do_mono = False
     pixels = []
 
@@ -31,7 +31,10 @@ class PixelDrawer(DrawingInterface):
         if shape is not None:
             self.num_rows, self.num_cols = shape
 
-
+    def update_shapes(self, shape=None):
+        if shape is not None:
+            self.num_rows, self.num_cols = shape
+            
     def load_model(self, config_path, checkpoint_path, device):
         # gamma = 1.0
 
