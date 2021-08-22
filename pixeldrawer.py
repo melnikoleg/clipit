@@ -122,7 +122,15 @@ class PixelDrawer(DrawingInterface):
                     mono_color = random.random()
                     cell_color = torch.tensor([mono_color, mono_color, mono_color, 1.0])
                 else:
-                    cell_color = torch.tensor([init_tensor[0][0][int(cur_y)][int(cur_x)], init_tensor[0][1][int(cur_y)][int(cur_x)], init_tensor[0][2][int(cur_y)][int(cur_x)], 1])
+                    try:
+                        cell_color = torch.tensor([init_tensor[0][0][int(cur_y)][int(cur_x)], init_tensor[0][1][int(cur_y)][int(cur_x)], init_tensor[0][2][int(cur_y)][int(cur_x)], 1])
+                    except IOError:
+                        mono_color = random.random()
+                        cell_color = torch.tensor([mono_color, mono_color, mono_color, 1.0])
+                    else:
+                        mono_color = random.random()
+                        cell_color = torch.tensor([mono_color, mono_color, mono_color, 1.0])
+                    
                 colors.append(cell_color)
                 p0 = [cur_x, cur_y]
                 p1 = [cur_x+cell_width, cur_y+cell_height]
