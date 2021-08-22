@@ -32,6 +32,7 @@ class PixelDrawer(DrawingInterface):
             self.num_rows, self.num_cols = shape
 
     def set_shapes(self, shape=None):
+        print("setting shape", shape)
         if shape is not None:
             self.num_rows, self.num_cols = shape
             
