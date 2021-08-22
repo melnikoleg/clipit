@@ -630,6 +630,7 @@ def make_gif(args, iter):
 
 @torch.no_grad()
 def update_shapes(args, iter, img, shape):
+    global drawer
     starting_tensor = TF.to_tensor(img)
     print("starting_tensor",starting_tensor.to(device).unsqueeze(0).shape)
     print("starting_tensor",starting_tensor.to(device).unsqueeze(0))
@@ -665,9 +666,9 @@ def checkin(args, iter, losses):
     if IS_NOTEBOOK and iter % args.display_every == 0:
         if cur_anim_index is None or iter == 0:
             display.display(display.Image(outfile))
-    if iter % 250 == 0:
+    if iter % 100 == 0 && iter < 120:
         update_shapes(args, iter, img, (50, 150));
-    if iter % 750 == 0:
+    if iter % 200 == 0:
         update_shapes(args, iter, img, (75, 225));
 
 def ascend_txt(args):
