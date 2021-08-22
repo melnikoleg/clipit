@@ -124,7 +124,7 @@ class PixelDrawer(DrawingInterface):
                 else:
                     try:
                         cell_color = torch.tensor([init_tensor[0][0][int(cur_y)][int(cur_x)], init_tensor[0][1][int(cur_y)][int(cur_x)], init_tensor[0][2][int(cur_y)][int(cur_x)], 1])
-                    except IOError:
+                    except:
                         mono_color = random.random()
                         cell_color = torch.tensor([mono_color, mono_color, mono_color, 1.0])
                     else:
