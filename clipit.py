@@ -629,7 +629,7 @@ def make_gif(args, iter):
 #   -loop 0 {animation_output}/final.gif
 
 @torch.no_grad()
-def update_shapes(args, iter, img):
+def update_shapes(args, iter, img, shape):
     starting_tensor = TF.to_tensor(img)
     print("starting_tensor",starting_tensor.to(device).unsqueeze(0).shape)
     print("starting_tensor",starting_tensor.to(device).unsqueeze(0))
@@ -637,7 +637,7 @@ def update_shapes(args, iter, img):
     init_tensor = starting_tensor.to(device).unsqueeze(0)
     print("intit_tensor", init_tensor.shape)
     print("intit_tensor", init_tensor)
-    drawer.set_shapes(75, 225)
+    drawer.set_shapes(shape)
     drawer.init_from_tensor(init_tensor)
     
 @torch.no_grad()
@@ -665,8 +665,10 @@ def checkin(args, iter, losses):
     if IS_NOTEBOOK and iter % args.display_every == 0:
         if cur_anim_index is None or iter == 0:
             display.display(display.Image(outfile))
-    if iter % args.display_every == 500:
-        update_shapes(args, iter, img);
+    if iter % 250 == 0:
+        update_shapes(args, iter, img, (50, 150));
+    if iter % 750 == 0:
+        update_shapes(args, iter, img, (75, 225));
 
 def ascend_txt(args):
     global cur_iteration, cur_anim_index, perceptors, normalize, cutoutsTable, cutoutSizeTable
