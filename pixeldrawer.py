@@ -17,8 +17,8 @@ from PIL import ImageFile, Image, PngImagePlugin
 pydiffvg.set_print_timing(False)
 
 class PixelDrawer(DrawingInterface):
-    num_rows = 300
-    num_cols = 580
+    num_rows = 150
+    num_cols = 280
     do_mono = False
     pixels = []
 
