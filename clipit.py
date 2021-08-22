@@ -1023,7 +1023,7 @@ def setup_parser():
 
 square_size = [144, 144]
 widescreen_size = [200, 112]  # at the small size this becomes 192,112
-twitter_size = [300, 100]  # at the small size this becomes 192,112
+twitter_size = [600, 200]  # at the small size this becomes 192,112
 
 def process_args(vq_parser, namespace=None):
     global global_aspect_width
@@ -1088,7 +1088,7 @@ def process_args(vq_parser, namespace=None):
     aspect_to_size_table = {
         'square': [150, 150],
         'widescreen': [200, 112],
-        'twitter': [300, 100]
+        'twitter': [600, 200]
     }
 
     # determine size if not set
