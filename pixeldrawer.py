@@ -13,7 +13,6 @@ import torchvision.transforms as transforms
 import numpy as np
 import PIL.Image
 from PIL import ImageFile, Image, PngImagePlugin
-from IPython import display
 
 pydiffvg.set_print_timing(False)
 
@@ -93,7 +92,6 @@ class PixelDrawer(DrawingInterface):
         
         pimg = self.to_image()
         pimg.save("start.png")
-        display.display(display.Image("start.png"))
         
     def get_opts(self):
         return self.opts
@@ -160,7 +158,6 @@ class PixelDrawer(DrawingInterface):
         self.synth(0)
         pimg = self.to_image()
         pimg.save("init.png")
-        display.display(display.Image("init.png"))
 
 
     def reapply_from_tensor(self, new_tensor):
