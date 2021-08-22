@@ -637,7 +637,7 @@ def update_shapes(args, iter, img):
     init_tensor = starting_tensor.to(device).unsqueeze(0)
     print("intit_tensor", init_tensor.shape)
     print("intit_tensor", init_tensor)
-    drawer.set_shape(75, 225)
+    drawer.set_shapes(75, 225)
     drawer.init_from_tensor(init_tensor)
     
 @torch.no_grad()
