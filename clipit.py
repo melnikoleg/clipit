@@ -821,7 +821,7 @@ def update_shapes(args, iter, shape):
 def train(args, cur_it):
     global drawer;
     for opt in opts:
-        # opt.zero_grad(set_to_none=True)
+        # opt.zero_grad(set_to_none=True)fg
         opt.zero_grad()
     lossAll = ascend_txt(args)
     
