@@ -839,9 +839,9 @@ def train(args, cur_it):
 
     drawer.clip_z()    
     if cur_it % 100 and cur_it > 100:
-        update_shapes(args, cur_it, (50, 150)):
+        update_shapes(args, cur_it, (50, 150))
     if cur_it % 200 and cur_it > 200:
-        update_shapes(args, cur_it, (75, 225)):
+        update_shapes(args, cur_it, (75, 225))
 
 imagenet_templates = [
     "itap of a {}.",
