@@ -838,9 +838,9 @@ def train(args, cur_it):
         re_average_z(args)
 
     drawer.clip_z()    
-    if cur_it % 100 and cur_it > 100:
+    if cur_it % 250 == 0 and cur_it < 255:
         update_shapes(args, cur_it, (50, 150))
-    if cur_it % 200 and cur_it > 200:
+    if cur_it % 750 == 0 and cur_it < 755:
         update_shapes(args, cur_it, (75, 225))
 
 imagenet_templates = [
