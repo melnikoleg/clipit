@@ -805,18 +805,6 @@ def re_average_z(args):
     drawer.reapply_from_tensor(TF.to_tensor(cur_z_image).to(device).unsqueeze(0) * 2 - 1)
 
 # torch.autograd.set_detect_anomaly(True)
-def update_shapes(args, iter, shape):
-    global drawer
-    img = drawer.to_image()
-    starting_tensor = TF.to_tensor(img)
-    print("starting_tensor",starting_tensor.to(device).unsqueeze(0).shape)
-    print("starting_tensor",starting_tensor.to(device).unsqueeze(0))
-    #init_tensor = starting_tensor.to(device).unsqueeze(0) * 2 - 1
-    init_tensor = starting_tensor.to(device).unsqueeze(0)
-    print("intit_tensor", init_tensor.shape)
-    print("intit_tensor", init_tensor)
-    drawer.set_shapes(shape)
-    drawer.init_from_tensor(init_tensor)
     
 def train(args, cur_it):
     global drawer;
@@ -838,10 +826,6 @@ def train(args, cur_it):
         re_average_z(args)
 
     drawer.clip_z()    
-    if cur_it % 250 == 0 and cur_it < 255 && and cur_it < 255 and cur_it > 2:
-        update_shapes(args, cur_it, (50, 150))
-    if cur_it % 750 == 0 and cur_it < 755 and cur_it > 2:
-        update_shapes(args, cur_it, (75, 225))
 
 imagenet_templates = [
     "itap of a {}.",
