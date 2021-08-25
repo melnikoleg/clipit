@@ -293,6 +293,7 @@ class PixelDrawer(DrawingInterface):
         return pimg
 
     def clip_z(self):
+        print("self.color_varsz1", self.color_vars[0])
         with torch.no_grad():
             for group in self.shape_groups:
                 group.fill_color.data[:3].clamp_(0.0, 1.0)
@@ -300,6 +301,8 @@ class PixelDrawer(DrawingInterface):
                 if self.do_mono:
                     avg_amount = torch.mean(group.fill_color.data[:3])
                     group.fill_color.data[:3] = avg_amount
+        print("self.color_varsz2", self.color_vars[0])
+                
 
     def get_z(self):
         return None
