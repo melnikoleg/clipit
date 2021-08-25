@@ -163,7 +163,7 @@ class PixelDrawer(DrawingInterface):
         #self.synth(0)
         #pimg = self.to_image()
         #pimg.save("init.png")
-        half_shape()
+        self.half_shape()
 
         
     def reapply_from_tensor(self, new_tensor):
