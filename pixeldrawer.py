@@ -158,7 +158,7 @@ class PixelDrawer(DrawingInterface):
         # Optimizers
         # points_optim = torch.optim.Adam(points_vars, lr=1.0)
         # width_optim = torch.optim.Adam(stroke_width_vars, lr=0.1)
-        color_optim = torch.optim.Adam(color_vars, lr=0.02)
+        color_optim = torch.optim.Adam(self.color_vars, lr=0.02)
 
         self.img = img
         self.shapes = shapes
