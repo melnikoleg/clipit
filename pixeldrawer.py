@@ -160,9 +160,9 @@ class PixelDrawer(DrawingInterface):
 
         print("from_image_shape", img.shape)
 
-        self.synth(0)
-        pimg = self.to_image()
-        pimg.save("init.png")
+        #self.synth(0)
+        #pimg = self.to_image()
+        #pimg.save("init.png")
 
         
     def reapply_from_tensor(self, new_tensor):
@@ -209,11 +209,11 @@ class PixelDrawer(DrawingInterface):
         self.img = img
         self.shapes = shapes 
         self.shape_groups  = shape_groups
-        self.synth(0)
+        #self.synth(0)
         print("from_image_shape", img.shape)
 
-        pimg = self.to_image()
-        pimg.save("scale.png")
+        #pimg = self.to_image()
+        #pimg.save("scale.png")
 
     def full_shape(self):
         print("full_shape")
@@ -252,9 +252,9 @@ class PixelDrawer(DrawingInterface):
 
         print("from_image_shape", img.shape)
 
-        self.synth(0)
-        pimg = self.to_image()
-        pimg.save("scale2.png")
+        #self.synth(0)
+        #pimg = self.to_image()
+        #pimg.save("scale2.png")
 
     def get_z_from_tensor(self, ref_tensor):
         return None
