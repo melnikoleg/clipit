@@ -96,7 +96,6 @@ class PixelDrawer(DrawingInterface):
         self.opts = [color_optim]
         
         self.synth(0)
-        print("start_image_shape", img.shape)
         
         pimg = self.to_image()
         pimg.save("start.png")
@@ -109,7 +108,6 @@ class PixelDrawer(DrawingInterface):
         pass
 
     def init_from_tensor(self, init_tensor):
-        print(init_tensor)
         print(init_tensor.shape)
         
   
@@ -211,7 +209,7 @@ class PixelDrawer(DrawingInterface):
         render = pydiffvg.RenderFunction.apply
         img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
 
-        print("self.color_vars", self.color_vars.shape)
+        print("self.color_vars", self.color_vars[0].shape)
         
         self.img = img
         self.shapes = shapes 
