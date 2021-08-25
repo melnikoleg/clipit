@@ -211,6 +211,8 @@ class PixelDrawer(DrawingInterface):
         render = pydiffvg.RenderFunction.apply
         img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
 
+        print("self.color_vars", self.color_vars.shape)
+        
         self.img = img
         self.shapes = shapes 
         self.shape_groups  = shape_groups
