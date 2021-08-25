@@ -108,9 +108,7 @@ class PixelDrawer(DrawingInterface):
         pass
 
     def init_from_tensor(self, init_tensor):
-        print(init_tensor.shape)
-        
-  
+        print("init tensor")
         canvas_width, canvas_height = self.canvas_width, self.canvas_height
         num_rows, num_cols = self.end_num_rows, self.end_num_cols
         
@@ -154,7 +152,7 @@ class PixelDrawer(DrawingInterface):
         # points_optim = torch.optim.Adam(points_vars, lr=1.0)
         # width_optim = torch.optim.Adam(stroke_width_vars, lr=0.1)
         color_optim = torch.optim.Adam(self.color_vars, lr=0.02)
-
+        print("self.color_vars", self.color_vars[0])
         self.img = img
         self.shapes = shapes
         self.shape_groups  = shape_groups
@@ -206,7 +204,7 @@ class PixelDrawer(DrawingInterface):
         render = pydiffvg.RenderFunction.apply
         img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
 
-        print("self.color_vars", self.color_vars[0].shape)
+        print("self.color_vars", self.color_vars[0])
         
         self.img = img
         self.shapes = shapes 
@@ -214,7 +212,6 @@ class PixelDrawer(DrawingInterface):
 
         print("from_image_shape", img.shape)
 
-        self.synth(0)
         pimg = self.to_image()
         pimg.save("scale.png")
 
@@ -267,6 +264,7 @@ class PixelDrawer(DrawingInterface):
         return 5
 
     def synth(self, cur_iteration):
+        print("synth")
         render = pydiffvg.RenderFunction.apply
         scene_args = pydiffvg.RenderFunction.serialize_scene(\
             self.canvas_width, self.canvas_height, self.shapes, self.shape_groups)
