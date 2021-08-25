@@ -134,7 +134,8 @@ class PixelDrawer(DrawingInterface):
                     except BaseException as error:
                         mono_color = random.random()
                         cell_color = torch.tensor([mono_color, mono_color, mono_color, 1.0])
-
+                cell_color.requires_grad = False
+                self.color_vars.append(cell_color)
                 colors.append(cell_color)
                 p0 = [cur_x, cur_y]
                 p1 = [cur_x+cell_width, cur_y+cell_height]
@@ -148,10 +149,6 @@ class PixelDrawer(DrawingInterface):
             canvas_width, canvas_height, shapes, shape_groups)
         render = pydiffvg.RenderFunction.apply
         img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
-
-        for group in shape_groups:
-            group.fill_color.requires_grad = False
-            self.color_vars.append(group.fill_color)
 
         # Optimizers
         # points_optim = torch.optim.Adam(points_vars, lr=1.0)
