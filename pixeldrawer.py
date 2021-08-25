@@ -163,7 +163,7 @@ class PixelDrawer(DrawingInterface):
         #self.synth(0)
         #pimg = self.to_image()
         #pimg.save("init.png")
-        self.half_shape()
+        #self.half_shape()
         print("self.color_vars_half", self.color_vars)
 
         
