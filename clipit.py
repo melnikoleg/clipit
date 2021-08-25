@@ -419,6 +419,7 @@ def do_init(args):
         print("intit_tensor", init_tensor.shape)
         print("intit_tensor", init_tensor)
         drawer.init_from_tensor(init_tensor)
+        drawer.half_shape()
 
     else:
         # untested
@@ -880,6 +881,8 @@ def do_run(args):
                     # anim_next_zs[cur_anim_index] = drawer.get_z_copy()
                     cur_images.append(drawer.to_image())
                 step_iteration = step_iteration + args.save_every
+                if step_iteration >= args.iterations/2:
+                    drawer.full_shape()
                 if step_iteration >= args.iterations:
                     break
                 # compute the next round of cur_zs here from all the next_zs
