@@ -19,8 +19,8 @@ pydiffvg.set_print_timing(False)
 class PixelDrawer(DrawingInterface):
     num_rows = 45
     num_cols = 45*3
-    end_num_rows = 45
-    end_num_cols = 45*3
+    end_num_rows = 80
+    end_num_cols = 80*3
     color_vars = []
     do_mono = False
     pixels = []
@@ -198,7 +198,7 @@ class PixelDrawer(DrawingInterface):
                 p1 = [cur_x+cell_width, cur_y+cell_height]
                 path = pydiffvg.Rect(p_min=torch.tensor(p0), p_max=torch.tensor(p1))
                 shapes.append(path)
-                self.color_vars[i].requires_grad = False
+                self.color_vars[i].requires_grad = True
                 path_group = pydiffvg.ShapeGroup(shape_ids = torch.tensor([len(shapes) - 1]), stroke_color = None, fill_color = self.color_vars[i])
                 shape_groups.append(path_group)
                 i = i+2
@@ -219,17 +219,47 @@ class PixelDrawer(DrawingInterface):
         self.synth(0)
         pimg = self.to_image()
         pimg.save("scale.png")
+
+    def full_shape(self):
         
-    def scale(self, shape):
+        canvas_width, canvas_height = self.canvas_width, self.canvas_height
+        num_rows, num_cols = self.end_num_rows, self.end_num_cols
+
+        cell_width = canvas_width / num_cols
+        cell_height = canvas_height / num_rows
+
+        # Initialize Random Pixels
+        shapes = []
+        shape_groups = []
+        colors = []
+        i = 0
         for r in range(num_rows):
             cur_y = r * cell_height
             for c in range(num_cols):
                 cur_x = c * cell_width
-                if c < shape_x:
-                    
-                else:
-         for group in self.shape_groups:
-            self.shape_groups
+                p0 = [cur_x, cur_y]
+                p1 = [cur_x+cell_width, cur_y+cell_height]
+                path = pydiffvg.Rect(p_min=torch.tensor(p0), p_max=torch.tensor(p1))
+                shapes.append(path)
+                self.color_vars[i].requires_grad = True
+                path_group = pydiffvg.ShapeGroup(shape_ids = torch.tensor([len(shapes) - 1]), stroke_color = None, fill_color = self.color_vars[i])
+                shape_groups.append(path_group)
+
+        # Just some diffvg setup
+        scene_args = pydiffvg.RenderFunction.serialize_scene(\
+            canvas_width, canvas_height, shapes, shape_groups)
+        render = pydiffvg.RenderFunction.apply
+        img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
+
+        self.img = img
+        self.shapes = shapes 
+        self.shape_groups  = shape_groups
+
+        print("from_image_shape", img.shape)
+
+        self.synth(0)
+        pimg = self.to_image()
+        pimg.save("scale2.png")
 
     def get_z_from_tensor(self, ref_tensor):
         return None
