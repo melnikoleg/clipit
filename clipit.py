@@ -419,7 +419,7 @@ def do_init(args):
         print("intit_tensor", init_tensor.shape)
         print("intit_tensor", init_tensor)
         drawer.init_from_tensor(init_tensor)
-        drawer.half_shape()
+        #drawer.half_shape()
 
     else:
         # untested
