@@ -19,6 +19,9 @@ pydiffvg.set_print_timing(False)
 class PixelDrawer(DrawingInterface):
     num_rows = 45
     num_cols = 45*3
+    end_num_rows = 45
+    end_num_cols = 45*3
+    color_vars = []
     do_mono = False
     pixels = []
 
@@ -28,8 +31,10 @@ class PixelDrawer(DrawingInterface):
         self.canvas_width = width
         self.canvas_height = height
         self.do_mono = do_mono
+        
+        
         if shape is not None:
-            self.num_rows, self.num_cols = shape
+            self.end_num_rows, self.end_num_cols = shape
 
     def set_shapes(self, shape=None):
         print("setting shape", shape)
@@ -45,7 +50,7 @@ class PixelDrawer(DrawingInterface):
         pydiffvg.set_device(device)
 
         canvas_width, canvas_height = self.canvas_width, self.canvas_height
-        num_rows, num_cols = self.num_rows, self.num_cols
+        num_rows, num_cols = self.end_num_rows, self.end_num_cols
         cell_width = canvas_width / num_cols
         cell_height = canvas_height / num_rows
 
@@ -76,15 +81,14 @@ class PixelDrawer(DrawingInterface):
         render = pydiffvg.RenderFunction.apply
         img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
 
-        color_vars = []
         for group in shape_groups:
             group.fill_color.requires_grad = True
-            color_vars.append(group.fill_color)
+            self.color_vars.append(group.fill_color)
 
         # Optimizers
         # points_optim = torch.optim.Adam(points_vars, lr=1.0)
         # width_optim = torch.optim.Adam(stroke_width_vars, lr=0.1)
-        color_optim = torch.optim.Adam(color_vars, lr=0.02)
+        color_optim = torch.optim.Adam(slef.color_vars, lr=0.02)
 
         self.img = img
         self.shapes = shapes 
@@ -110,7 +114,8 @@ class PixelDrawer(DrawingInterface):
         
   
         canvas_width, canvas_height = self.canvas_width, self.canvas_height
-        num_rows, num_cols = self.num_rows, self.num_cols
+        num_rows, num_cols = self.end_num_rows, self.end_num_cols
+        
         cell_width = canvas_width / num_cols
         cell_height = canvas_height / num_rows
 
@@ -146,32 +151,85 @@ class PixelDrawer(DrawingInterface):
         render = pydiffvg.RenderFunction.apply
         img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
 
-        color_vars = []
         for group in shape_groups:
-            group.fill_color.requires_grad = True
-            color_vars.append(group.fill_color)
+            group.fill_color.requires_grad = False
+            self.color_vars.append(group.fill_color)
 
         # Optimizers
         # points_optim = torch.optim.Adam(points_vars, lr=1.0)
         # width_optim = torch.optim.Adam(stroke_width_vars, lr=0.1)
         color_optim = torch.optim.Adam(color_vars, lr=0.02)
-    
+
         self.img = img
-        self.shapes = shapes 
+        self.shapes = shapes
         self.shape_groups  = shape_groups
         self.opts = [color_optim]
-        
-        
+
         print("from_image_shape", img.shape)
-        
+
         self.synth(0)
         pimg = self.to_image()
         pimg.save("init.png")
 
-
+        
     def reapply_from_tensor(self, new_tensor):
         # TODO
         pass
+    
+    def half_shape(self):
+        self.set_shapes(self.end_num_rows/2, self.end_num_cols/2)
+        
+        canvas_width, canvas_height = self.canvas_width, self.canvas_height
+        num_rows, num_cols = self.num_rows, self.num_cols
+
+        cell_width = canvas_width / num_cols
+        cell_height = canvas_height / num_rows
+
+        # Initialize Random Pixels
+        shapes = []
+        shape_groups = []
+        colors = []
+        i = 0
+        for r in range(self.num_rows):
+            cur_y = r * cell_height
+            for c in range(self.num_cols):
+                cur_x = c * cell_width
+                p0 = [cur_x, cur_y]
+                p1 = [cur_x+cell_width, cur_y+cell_height]
+                path = pydiffvg.Rect(p_min=torch.tensor(p0), p_max=torch.tensor(p1))
+                shapes.append(path)
+                self.color_vars[i].requires_grad = False
+                path_group = pydiffvg.ShapeGroup(shape_ids = torch.tensor([len(shapes) - 1]), stroke_color = None, fill_color = self.color_vars[i])
+                shape_groups.append(path_group)
+                i = i+2
+            i = i+2
+
+        # Just some diffvg setup
+        scene_args = pydiffvg.RenderFunction.serialize_scene(\
+            canvas_width, canvas_height, shapes, shape_groups)
+        render = pydiffvg.RenderFunction.apply
+        img = render(canvas_width, canvas_height, 2, 2, 0, None, *scene_args)
+
+        self.img = img
+        self.shapes = shapes 
+        self.shape_groups  = shape_groups
+
+        print("from_image_shape", img.shape)
+
+        self.synth(0)
+        pimg = self.to_image()
+        pimg.save("scale.png")
+        
+    def scale(self, shape):
+        for r in range(num_rows):
+            cur_y = r * cell_height
+            for c in range(num_cols):
+                cur_x = c * cell_width
+                if c < shape_x:
+                    
+                else:
+         for group in self.shape_groups:
+            self.shape_groups
 
     def get_z_from_tensor(self, ref_tensor):
         return None
