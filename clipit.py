@@ -419,7 +419,7 @@ def do_init(args):
         print("intit_tensor", init_tensor.shape)
         print("intit_tensor", init_tensor)
         drawer.init_from_tensor(init_tensor)
-        drawer.half_shape()
+        #drawer.half_shape()
 
     else:
         # untested
@@ -883,6 +883,7 @@ def do_run(args):
                 #step_iteration = step_iteration + args.save_every
                 if step_iteration >= args.iterations/2:
                     #drawer.full_shape()
+                    print("half there")
                 if step_iteration >= args.iterations:
                     break
                 # compute the next round of cur_zs here from all the next_zs
