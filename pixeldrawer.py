@@ -177,6 +177,7 @@ class PixelDrawer(DrawingInterface):
         pass
     
     def half_shape(self):
+        print("half_shape")
         self.set_shapes((int(self.end_num_rows/2), int(self.end_num_cols/2)))
         
         canvas_width, canvas_height = self.canvas_width, self.canvas_height
@@ -221,7 +222,7 @@ class PixelDrawer(DrawingInterface):
         pimg.save("scale.png")
 
     def full_shape(self):
-        
+        print("full_shape")
         canvas_width, canvas_height = self.canvas_width, self.canvas_height
         num_rows, num_cols = self.end_num_rows, self.end_num_cols
 
