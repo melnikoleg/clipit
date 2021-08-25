@@ -209,7 +209,7 @@ class PixelDrawer(DrawingInterface):
         self.img = img
         self.shapes = shapes 
         self.shape_groups  = shape_groups
-
+        self.synth(0)
         print("from_image_shape", img.shape)
 
         pimg = self.to_image()
