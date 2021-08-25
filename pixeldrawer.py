@@ -152,7 +152,7 @@ class PixelDrawer(DrawingInterface):
         # points_optim = torch.optim.Adam(points_vars, lr=1.0)
         # width_optim = torch.optim.Adam(stroke_width_vars, lr=0.1)
         color_optim = torch.optim.Adam(self.color_vars, lr=0.02)
-        print("self.color_vars", self.color_vars[0])
+        print("self.color_vars", self.color_vars)
         self.img = img
         self.shapes = shapes
         self.shape_groups  = shape_groups
@@ -164,6 +164,7 @@ class PixelDrawer(DrawingInterface):
         #pimg = self.to_image()
         #pimg.save("init.png")
         self.half_shape()
+        print("self.color_vars_half", self.color_vars)
 
         
     def reapply_from_tensor(self, new_tensor):
