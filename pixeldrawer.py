@@ -132,7 +132,7 @@ class PixelDrawer(DrawingInterface):
                     except BaseException as error:
                         mono_color = random.random()
                         cell_color = torch.tensor([mono_color, mono_color, mono_color, 1.0])
-                cell_color.requires_grad = False
+                cell_color.requires_grad = True
                 self.color_vars.append(cell_color)
                 colors.append(cell_color)
                 p0 = [cur_x, cur_y]
