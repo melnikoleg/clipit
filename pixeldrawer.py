@@ -177,7 +177,7 @@ class PixelDrawer(DrawingInterface):
         pass
     
     def half_shape(self):
-        self.set_shapes(self.end_num_rows/2, self.end_num_cols/2)
+        self.set_shapes((self.end_num_rows/2, self.end_num_cols/2))
         
         canvas_width, canvas_height = self.canvas_width, self.canvas_height
         num_rows, num_cols = self.num_rows, self.num_cols
