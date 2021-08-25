@@ -880,9 +880,9 @@ def do_run(args):
                         pbar.update()
                     # anim_next_zs[cur_anim_index] = drawer.get_z_copy()
                     cur_images.append(drawer.to_image())
-                step_iteration = step_iteration + args.save_every
+                #step_iteration = step_iteration + args.save_every
                 if step_iteration >= args.iterations/2:
-                    drawer.full_shape()
+                    #drawer.full_shape()
                 if step_iteration >= args.iterations:
                     break
                 # compute the next round of cur_zs here from all the next_zs
