@@ -1066,10 +1066,10 @@ def process_args(vq_parser, namespace=None):
     # this should be replaced with logic that does somethings
     # smart based on available memory (eg: size, num_models, etc)
     quality_to_num_cuts_table = {
-        'draft': 128,
-        'normal': 112,
-        'better': 96,
-        'best': 64,
+        'draft': 192,
+        'normal': 144,
+        'better': 128,
+        'best': 96,
     }
 
     if args.quality not in quality_to_clip_models_table:
