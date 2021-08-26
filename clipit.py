@@ -259,6 +259,9 @@ class MakeCutouts(nn.Module):
         augmentations.append(MyRandomPerspective(distortion_scale=0.40, p=0.7, return_transform=True))
         augmentations.append(K.RandomResizedCrop(size=(self.cut_size,self.cut_size), scale=(0.15,0.80),  ratio=(0.75,1.333), cropping_mode='resample', p=0.7, return_transform=True))
         augmentations.append(K.ColorJitter(hue=0.1, saturation=0.1, p=0.8, return_transform=True))
+        augmentations.append(K.RandomHorizontalFlip(p=0.5)),
+        augmentations.append(K.RandomSharpness(0.3, p=0.4)),
+        augmentations.append(K.RandomAffine(degrees=0.33, translate=0.1, p=0.7, padding_mode='border')),
         self.augs = nn.Sequential(*augmentations)
 
         self.noise_fac = 0.1
@@ -1063,10 +1066,10 @@ def process_args(vq_parser, namespace=None):
     # this should be replaced with logic that does somethings
     # smart based on available memory (eg: size, num_models, etc)
     quality_to_num_cuts_table = {
-        'draft': 40,
-        'normal': 40,
-        'better': 40,
-        'best': 40
+        'draft': 128,
+        'normal': 112,
+        'better': 96,
+        'best': 64,
     }
 
     if args.quality not in quality_to_clip_models_table:
