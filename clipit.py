@@ -1092,9 +1092,9 @@ def process_args(vq_parser, namespace=None):
     quality_to_num_cuts_table = {
         'draft': 96,
         'draft_pro': 176,
-        'normal': 144,
-        'better': 128,
-        'best': 96,
+        'normal': 96,
+        'better': 64,
+        'best': 48,
     }
 
     if args.quality not in quality_to_clip_models_table:
