@@ -1004,7 +1004,7 @@ def setup_parser():
     vq_parser.add_argument("-ove",  "--overlay_every", type=int, help="Overlay image iterations", default=None, dest='overlay_every')
     vq_parser.add_argument("-ovo",  "--overlay_offset", type=int, help="Overlay image iteration offset", default=0, dest='overlay_offset')
     vq_parser.add_argument("-ovi",  "--overlay_image", type=str, help="Overlay image (if not init)", default=None, dest='overlay_image')
-    vq_parser.add_argument("-qua",  "--quality", type=str, help="draft, normal, best", default="normal", dest='quality')
+    vq_parser.add_argument("-qua",  "--quality", type=str, help="draft, draft_pro, normal, best", default="normal", dest='quality')
     vq_parser.add_argument("-asp",  "--aspect", type=str, help="widescreen, square", default="widescreen", dest='aspect')
     vq_parser.add_argument("-ezs",  "--ezsize", type=str, help="small, medium, large", default=None, dest='ezsize')
     vq_parser.add_argument("-sca",  "--scale", type=float, help="scale (instead of ezsize)", default=None, dest='scale')
@@ -1068,18 +1068,21 @@ def process_args(vq_parser, namespace=None):
 
     quality_to_clip_models_table = {
         'draft': 'ViT-B/32',
+        'draft_pro': 'ViT-B/32',
         'normal': 'ViT-B/32,ViT-B/16',
         'better': 'RN50,ViT-B/32,ViT-B/16',
         'best': 'RN50x4,ViT-B/32,ViT-B/16'
     }
     quality_to_iterations_table = {
         'draft': 200,
+        'draft_pro': 500,
         'normal': 350,
         'better': 500,
         'best': 500
     }
     quality_to_scale_table = {
         'draft': 1,
+        'draft_pro': 3,
         'normal': 2,
         'better': 3,
         'best': 4
@@ -1087,7 +1090,8 @@ def process_args(vq_parser, namespace=None):
     # this should be replaced with logic that does somethings
     # smart based on available memory (eg: size, num_models, etc)
     quality_to_num_cuts_table = {
-        'draft': 192,
+        'draft': 96,
+        'draft_pro': 176,
         'normal': 144,
         'better': 128,
         'best': 96,
