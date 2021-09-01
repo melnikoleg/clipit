@@ -354,7 +354,7 @@ def do_init(args):
     num_resolutions = drawer.get_num_resolutions()
     # print("-----------> NUMR ", num_resolutions)
 
-    jit = True if float(torch.__version__[:3]) < 1.8 else False
+    jit = False
     f = 2**(num_resolutions - 1)
 
     toksX, toksY = args.size[0] // f, args.size[1] // f
